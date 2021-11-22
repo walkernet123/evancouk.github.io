@@ -1,0 +1,249 @@
+<html><head>
+<script language="JavaScript">
+
+<!-- hide
+if (document.images) {
+	var numImages=36 		// The number of images to be loaded
+	pics = new Array();	// Array to preload small images.
+ 	var objCount = 0; // Current number of image being loaded.
+ 	array = new Array();
+}
+
+// HTML for error window
+var starthtml='<html><head></head><body bgcolor="BLUE" text="WHITE"><html>';      
+
+var errortext='Sorry. You have a stone age browser'+
+              'and therefore will not be able to '+
+		  'change the images on Evan\'s Web page.';
+
+var endhtml='</body></html>';
+var last1 = 0; // Stores number of last small image to be buttonised.
+var lastclick = 0 // Stores number of image currently in centre.
+var stat='Click the small images to change the large centre image';
+var first = 1; // Only true until first centre image is displayed.
+
+function preload(x1) {  
+  // preload small images and place them in an array
+
+  if (document.images) {     
+    pics[objCount] = new Array(4);
+    pics[objCount][0] = new Image();
+    pics[objCount][0].src = "pic"+x1+"a.jpg";
+    pics[objCount][1] = new Image();
+    pics[objCount][1].src = "pic"+x1+"b.jpg";
+    pics[objCount][2] = "link"+x1;
+    pics[objCount][3] = new Image();
+    objCount++;
+  }
+}
+
+function onx(x2){
+  if (document.images) {
+     	if (pics[lastclick][3].complete && document.images[last1].complete) {	
+		// Restore last small image which had mouseover to non-buttonised
+     		document.images[pics[last1][2]].src = pics[last1][0].src;
+     	//	document.images[pics[last1][2]].src = "pic"+last1+"a.jpg";
+     		// Then buttonise image which now has mouseover
+         	document.images[pics[x2][2]].src = pics[x2][1].src;
+        // 	document.images[pics[x2][2]].src = "pic"+x2+"b.jpg";
+         	// And record which image now has mouseover
+         	last1 = x2;
+
+	}
+  }
+}
+
+function alloff(){
+// Set all images to non-butonised
+  if (document.images) {
+     for (x3 = 0; x3 < objCount; x3++) {
+         document.images[pics[x3][2]].src = "pic"+x3+"a.jpg";
+     }
+  }
+}
+
+function offx(){
+  if (document.images) {
+     	if (pics[lastclick][3].complete) {	
+	      // Restore last small image which had mouseover to non-buttonised
+          	document.images[pics[last1][2]].src = pics[last1][0].src;
+     	//	document.images[pics[last1][2]].src = "pic"+last1+"a.jpg";
+	}
+   }
+}
+
+function clicked(num1) {
+// Display the big picture in the middle
+ 	if (document.images) {
+		if (pics[lastclick][3].complete || first == 1) {	
+			num = num1;
+			document.images.centre.src = "loading.jpg";
+			lastclick = num;
+			pics[num][3].src = "pic"+num+".jpg";	
+			document.images.centre.src = pics[num][3].src;
+			status='';
+			first = 0;
+		}
+	}
+}
+
+function loadimg(x5) {  
+// Stopped using this function as couldn't get it to run after all small imgs load.
+// load the images into array
+	if (document.images) {     
+   		array[x5] = new Image();
+		array[x5].src = "pic"+x5+".jpg";
+	}
+}
+
+function loadbig() {
+		// Stopped using this function as couldn't get it to run after all small imgs load.
+		if (document.images) {
+	      // Start loading the big images. Ideally these images will get preloaded
+		// before they are needed when user clicks small image
+		for (x6 = 0; x6 < numImages+1; x6++) {
+			loadimg(x6);
+		}
+	}
+}
+
+function loadsmall() {
+// Preload all the images
+if (document.images) {
+	for (x7 = 0; x7 < numImages; x7++) {
+		preload(x7);
+	}
+} else {
+   	msgWindow=window.open('','windowname','scrollbars=no,width=300,height=50,top=100,left=1');
+    	msgWindow.document.write(starthtml+errortext+endhtml);
+    	msgWindow.document.close();
+}
+}
+
+function shutit() {
+// Close the error window if it has been displayed.
+	if (window.msgWindow) {
+		if (!msgWindow.closed) {
+		      msgWindow.close();
+		}
+	}
+}
+// -->
+</script>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Home Page</title>
+</head>
+<!--  # Display all original images at load. Saves putting src= in all table elements </p> -->
+<body onLoad="alloff();clicked(0);" onUnload="shutit();" background="backgrnd.jpg">
+<table align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="javascript:clicked(0)" onMouseOver="onx(0);status=stat;return true" onMouseOut="offx();status=''">
+	<img name="link0" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(1)" onMouseOver="onx(1);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link1" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(2)" onMouseOver="onx(2);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link2" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(3)" onMouseOver="onx(3);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link3" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(4)" onMouseOver="onx(4);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link4" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(5)" onMouseOver="onx(5);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link5" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(6)" onMouseOver="onx(6);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link6" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(7)" onMouseOver="onx(7);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link7" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(8)" onMouseOver="onx(8);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link8" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(9)" onMouseOver="onx(9);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link9" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(10)" onMouseOver="onx(10);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link10" width="40" height="40" border="0"></a></td>
+    <td colspan="8" rowspan="8"><img name="centre" src="loading.jpg" width="320" height="320"
+    border="0"></td>
+    <td><a href="javascript:clicked(11)" onMouseOver="onx(11);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link11" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(12)" onMouseOver="onx(12);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link12" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(13)" onMouseOver="onx(13);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link13" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(14)" onMouseOver="onx(14);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link14" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(15)" onMouseOver="onx(15);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link15" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(16)" onMouseOver="onx(16);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link16" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(17)" onMouseOver="onx(17);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link17" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(18)" onMouseOver="onx(18);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link18" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(19)" onMouseOver="onx(19);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link19" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(20)" onMouseOver="onx(20);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link20" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(21)" onMouseOver="onx(21);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link21" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(22)" onMouseOver="onx(22);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link22" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(23)" onMouseOver="onx(23);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link23" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(24)" onMouseOver="onx(24);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link24" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(25)" onMouseOver="onx(25);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link25" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:clicked(26)" onMouseOver="onx(26);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link26" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(27)" onMouseOver="onx(27);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link27" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(28)" onMouseOver="onx(28);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link28" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(29)" onMouseOver="onx(29);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link29" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(30)" onMouseOver="onx(30);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link30" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(31)" onMouseOver="onx(31);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link31" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(32)" onMouseOver="onx(32);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link32" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(33)" onMouseOver="onx(33);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link33" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(34)" onMouseOver="onx(34);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link34" width="40" height="40" border="0"></a></td>
+    <td><a href="javascript:clicked(35)" onMouseOver="onx(35);status=stat;return true" onMouseOut="offx();status=''"><img
+    name="link35" width="40" height="40" border="0"></a></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="10">
+        <a href="http://www.evan.co.uk/eagles" style="font-size: 9pt; margin-bottom: 10px">Eagles</a></h1>
+    </td>
+
+  </tr>
+</table>
+
+<script language="javascript"><!-- 
+loadsmall();
+//--></script>
+</body>
+
+</html>
